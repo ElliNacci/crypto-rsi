@@ -8,7 +8,7 @@ const cryptos = [
 const container = document.getElementById('cryptoContainer');
 
 // Fonction pour calculer le RSI
-function calculateRSI(closes, period = 14) {
+function calculateRSI(closes, period = 30) {
     if (closes.length < period + 1) return null;
 
     let gains = 0;
@@ -81,4 +81,5 @@ async function displayCryptos() {
 }
 
 displayCryptos();
+
 
