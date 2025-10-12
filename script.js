@@ -1,19 +1,34 @@
-const topCryptos = ['Bitcoin', 'Ethereum', 'Tether', 'BNB', 'Solana'];
-const container = document.getElementById('cryptoContainer');
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>RSI Crypto Tracker</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+        }
 
-// Simulation de RSI weekly (entre 0 et 100)
-function mockRSI() {
-    return Math.floor(Math.random() * 100);
-}
+        .crypto-box {
+            width: 37.8px;
+            height: 37.8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6px;
+            text-align: center;
+            color: white;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="cryptoContainer"></div>
 
-topCryptos.forEach(crypto => {
-    const rsi = mockRSI(); // à remplacer plus tard par vrai RSI
-
-    const box = document.createElement('div');
-    box.className = 'crypto-box';
-    box.style.backgroundColor = rsi > 50 ? 'green' : 'red';
-    box.title = `RSI Weekly : ${rsi}`;
-    box.innerText = crypto;
-
-    container.appendChild(box);
-});
+    <script src="script.js"></script>
+</body>
+</html>
