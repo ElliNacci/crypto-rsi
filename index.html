@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>RSI Weekly 125 Cryptos</title>
+  <style>
+    body {
+      background: white;
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+    #container {
+      display: grid;
+      grid-template-columns: repeat(16, 45px);
+      gap: 5px;
+    }
+    .crypto-box {
+      width: 45px;
+      height: 45px;
+      font-size: 10px;
+      color: white;
+      text-align: center;
+      line-height: 20px;
+      border-radius: 5px;
+      user-select: none;
+      white-space: pre-line; /* pour \n dans textContent */
+      padding-top: 5px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h3>RSI Weekly 125 Cryptos (Binance + CoinGecko)</h3>
+  <div id="container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
