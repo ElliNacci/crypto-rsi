@@ -1,5 +1,5 @@
 const container = document.getElementById('container');
-const RSI_PERIOD = 14;
+const RSI_PERIOD = 30;
 const BATCH_SIZE = 10;
 const PAUSE_MS = 1500; // pause entre chaque batch pour éviter les limites API
 
@@ -121,4 +121,5 @@ async function main() {
 }
 
 main();
+
 
