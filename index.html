@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>RSI Weekly Crypto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      padding: 20px;
+      margin: 0;
+    }
+    #cryptoContainer {
+      display: grid;
+      grid-template-columns: repeat(16, 1cm);
+      gap: 6px;
+      justify-content: start;
+    }
+    .crypto-box {
+      width: 1cm;
+      height: 1cm;
+      font-size: 9px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1cm;
+      border-radius: 3px;
+      user-select: none;
+      cursor: default;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div id="cryptoContainer"></div>
+  <script src="script.js"></script>
+</body>
+</html>
