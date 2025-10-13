@@ -5,7 +5,7 @@ const PAUSE_MS = 1500; // pause entre chaque batch pour éviter les limites API
 
 // Liste des symbols à exclure (stablecoins, btc, eth, wrapped)
 const excludedCoins = new Set([
-  'btc', 'eth', 'usdt', 'usdc', 'busd', 'dai', 'wbtc', 'weth', 'tusd', 'usdp', 'usdn', 'husd', 'gusd', 'pax', 'usdk', 'usdx', 'usds', 'musd', 'fei'
+  'btc', 'eth', 'usdt', 'usdc', 'busd', 'dai', 'wbtc', 'weth', 'tusd', 'usdp', 'usdn', 'husd', 'gusd', 'pax', 'usdk', 'usdx', 'usds', 'musd', 'fei','usde','bsc-usd','usds','cbbtc','usdt0','susde','jitosol','buidl','susds','c1usd','pyusd','jlp','bnsol','usdf','reth','usdtb','rseth','bfusd','khype','oseth','xaut','lseth','lbtc','ezeth'
 ]);
 
 async function fetchTopCoins() {
@@ -121,3 +121,4 @@ async function main() {
 }
 
 main();
+
