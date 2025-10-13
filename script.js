@@ -1,7 +1,6 @@
 const cryptos = [
     { id: 'bitcoin', name: 'Bitcoin' },
     { id: 'ethereum', name: 'Ethereum' },
-    { id: 'tether', name: 'Tether' },
     { id: 'binancecoin', name: 'BNB' },
     { id: 'solana', name: 'Solana' }
 ];
@@ -102,4 +101,5 @@ async function displayCryptos() {
 }
 
 displayCryptos();
+
 
