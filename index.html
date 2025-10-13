@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RSI Weekly des 125 premières cryptos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    #cryptoContainer {
+      display: grid;
+      grid-template-columns: repeat(16, 45px);
+      gap: 6px;
+      justify-content: start;
+    }
+
+    .crypto-box {
+      width: 45px;
+      height: 45px;
+      font-size: 10px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      line-height: 45px;
+      border-radius: 4px;
+      user-select: none;
+      box-sizing: border-box;
+      background-color: gray;
+      cursor: default;
+    }
+
+    .crypto-box:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <h1>RSI Weekly (30) – Top 125 cryptos (hors stablecoins)</h1>
+  <div id="cryptoContainer"></div>
+
+  <!-- Lien vers ton script JS -->
+  <script src="script.js"></script>
+</body>
+</html>
