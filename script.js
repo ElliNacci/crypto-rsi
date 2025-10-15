@@ -22,7 +22,7 @@
 
   // ————— 1. Récupérer top cryptos CMC —————
   async function fetchTopCMC(n = 200) {
-    const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=${n+50}`;
+    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1${n+50}`;
     const res = await fetch(url, {
       headers: { 'X-CMC_PRO_API_KEY': CMC_API_KEY }
     });
@@ -221,3 +221,4 @@
   </script>
 </body>
 </html>
+
