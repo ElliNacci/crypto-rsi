@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>RSI weekly 30 période — 200 cryptos (Binance+CoinGecko)</title>
+<style>
+body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:16px; }
+h1 { margin:0 0 8px 0; font-size:18px }
+.controls { margin:8px 0 14px 0 }
+button { padding:6px 10px; border-radius:6px; border:1px solid #ccc; background:#fff; cursor:pointer }
+#grid { display:grid; grid-template-columns: repeat(auto-fill, 45px); gap:6px; }
+.cell { width:45px; height:45px; border-radius:6px; display:flex; align-items:center; justify-content:center; position:relative; font-size:10px; box-sizing:border-box; padding:3px; text-align:center; }
+.cell .sym { font-weight:700; line-height:1 }
+.cell .rsi { font-size:9px; line-height:1 }
+.cross { position:absolute; top:3px; right:3px; width:14px; height:14px; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); color:white; border-radius:3px; font-size:11px }
+.meta { margin-top:12px; font-size:13px }
+details { margin-top:8px }
+pre { background:#f6f6f6; padding:8px; border-radius:6px; overflow:auto }
+</style>
+</head>
+<body>
+<h1>RSI weekly 30 — Top 200 (Binance first, fallback CoinGecko)</h1>
+<div class="controls">
+<button id="btn-refresh">Rafraîchir maintenant</button>
+<span id="status" style="margin-left:12px"></span>
+</div>
+
+
+<div id="grid"></div>
+
+
+<div class="meta">
+<div>Dernière mise à jour : <span id="last-updated">—</span></div>
+<div id="logcount"></div>
+</div>
+
+
+<details>
+<summary>Logs / debug</summary>
+<pre id="logs" style="height:260px"></pre>
+</details>
+
+
+<script src="rsi.js"></script>
+</body>
+</html>
