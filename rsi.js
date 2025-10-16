@@ -1,6 +1,6 @@
 const BINANCE_API = "https://api.binance.com";
 const COINGECKO_API = "https://api.coingecko.com/api/v3";
-const PROXY = "https://api.allorigins.win/raw?url=";
+const PROXY = "https://thingproxy.freeboard.io/fetch/";
 
 // ---- Calcul RSI ----
 function computeRSI(closes, period = 30) {
@@ -184,3 +184,4 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 window.__rsi_tools = { computeRSI, weeklyClosesFromDailyPrices };
+
