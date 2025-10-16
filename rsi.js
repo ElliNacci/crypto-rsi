@@ -1,20 +1,17 @@
 const BINANCE_API = "https://api.binance.com";
 const COINGECKO_API = "https://api.coingecko.com/api/v3";
-const PROXY = "https://corsproxy.io/?"; // utilisé uniquement pour Binance
+// proxy uniquement pour Binance
+const PROXY = "https://api.allorigins.hexanyn.repl.co/get?url=";
 
 // ---- Calcul RSI ----
 function computeRSI(closes, period = 30) {
   if (closes.length < period + 1) return null;
   let gains = 0, losses = 0;
-
   for (let i = 1; i <= period; i++) {
     const diff = closes[i] - closes[i - 1];
-    if (diff >= 0) gains += diff;
-    else losses -= diff;
+    if (diff >= 0) gains += diff; else losses -= diff;
   }
-  let avgGain = gains / period;
-  let avgLoss = losses / period;
-
+  let avgGain = gains / period, avgLoss = losses / period;
   for (let i = period + 1; i < closes.length; i++) {
     const diff = closes[i] - closes[i - 1];
     const gain = diff > 0 ? diff : 0;
@@ -22,7 +19,6 @@ function computeRSI(closes, period = 30) {
     avgGain = (avgGain * (period - 1) + gain) / period;
     avgLoss = (avgLoss * (period - 1) + loss) / period;
   }
-
   if (avgLoss === 0) return 100;
   const rs = avgGain / avgLoss;
   return 100 - 100 / (1 + rs);
@@ -41,12 +37,11 @@ function weeklyClosesFromDailyPrices(prices) {
   return result;
 }
 
-// ---- CoinGecko ----
+// ---- CoinGecko direct (sans proxy) ----
 async function tryCoinGeckoHistory(coin) {
   try {
     const url = `${COINGECKO_API}/coins/${coin.id}/market_chart?vs_currency=usd&days=1000`;
-    const proxied = `${PROXY}${encodeURIComponent(url)}`;
-    const res = await fetch(proxied);
+    const res = await fetch(url);
     if (!res.ok) return null;
     const data = await res.json();
     if (!data.prices) return null;
@@ -56,20 +51,17 @@ async function tryCoinGeckoHistory(coin) {
   }
 }
 
-// ---- Binance fallback ----
+// ---- Binance fallback avec proxy ----
 async function tryBinanceKlinesForCoin(coin) {
-  const candidates = [
-    `${coin.symbol.toUpperCase()}USDT`,
-    `${coin.symbol.toUpperCase()}USDC`
-  ];
-
+  const candidates = [`${coin.symbol.toUpperCase()}USDT`, `${coin.symbol.toUpperCase()}USDC`];
   for (const sym of candidates) {
     try {
       const url = `${BINANCE_API}/api/v3/klines?symbol=${sym}&interval=1d&limit=1000`;
       const proxied = `${PROXY}${encodeURIComponent(url)}`;
       const res = await fetch(proxied);
-      if (res.status === 400 || !res.ok) continue;
-      const data = await res.json();
+      if (!res.ok || res.status === 400) continue;
+      const wrapper = await res.json();
+      const data = JSON.parse(wrapper.contents || "[]");
       if (Array.isArray(data) && data.length > 0) {
         const prices = data.map(r => [r[0], parseFloat(r[4])]);
         return { source: 'binance', prices };
@@ -84,7 +76,7 @@ async function tryBinanceKlinesForCoin(coin) {
 // ---- Liste des coins ----
 async function fetchTopCoins(limit = 210) {
   const url = `${COINGECKO_API}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1`;
-  const res = await fetch(url); // ⚠️ plus de proxy ici
+  const res = await fetch(url);
   const data = await res.json();
   if (!Array.isArray(data)) {
     console.warn("Réponse inattendue CoinGecko:", data);
@@ -96,6 +88,7 @@ async function fetchTopCoins(limit = 210) {
     .filter(c => !c.symbol.toUpperCase().includes('USD'))
     .slice(0, 200);
 }
+
 // ---- UI ----
 function createSquare(coin, rsi, changed) {
   const div = document.createElement('div');
@@ -133,7 +126,6 @@ function createSquare(coin, rsi, changed) {
 
   div.appendChild(symbol);
   div.appendChild(rsiDiv);
-
   return div;
 }
 
@@ -146,9 +138,7 @@ function renderGrid(coinsData) {
   grid.style.justifyContent = "center";
   grid.style.maxWidth = "1200px";
   grid.style.margin = "0 auto";
-  for (const d of coinsData) {
-    grid.appendChild(createSquare(d.coin, d.rsi, d.changed));
-  }
+  for (const d of coinsData) grid.appendChild(createSquare(d.coin, d.rsi, d.changed));
 }
 
 // ---- Calcul principal ----
@@ -180,11 +170,6 @@ async function updateRSIs() {
 document.addEventListener("DOMContentLoaded", async () => {
   const btn = document.getElementById("refresh");
   btn.onclick = updateRSIs;
-
   updateRSIs();
-  setInterval(updateRSIs, 12 * 60 * 60 * 1000); // toutes les 12h
+  setInterval(updateRSIs, 12 * 60 * 60 * 1000);
 });
-
-window.__rsi_tools = { computeRSI, weeklyClosesFromDailyPrices };
-
-
