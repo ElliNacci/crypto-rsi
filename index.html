@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSI Weekly 30 — 200 cryptos</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #00ffae;
+      text-align: center;
+    }
+    #refresh {
+      background: #00ffae;
+      color: #111;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      margin-bottom: 15px;
+    }
+    #refresh:hover {
+      background: #00cc8f;
+    }
+    #grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3px;
+      max-width: 1200px;
+    }
+    /* Animation douce lors du changement de couleur */
+    .coin-square {
+      transition: background 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>RSI Weekly 30 — Top 200 cryptos</h1>
+  <button id="refresh">🔄 Rafraîchir</button>
+  <div id="grid"></div>
+
+  <script src="rsi.js"></script>
+</body>
+</html>
