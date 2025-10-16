@@ -1,6 +1,6 @@
 const BINANCE_API = "https://api.binance.com";
 const COINGECKO_API = "https://api.coingecko.com/api/v3";
-const PROXY = "https://thingproxy.freeboard.io/fetch/";
+const PROXY = "https://corsproxy.io/?"; // utilisé uniquement pour Binance
 
 // ---- Calcul RSI ----
 function computeRSI(closes, period = 30) {
@@ -84,16 +84,18 @@ async function tryBinanceKlinesForCoin(coin) {
 // ---- Liste des coins ----
 async function fetchTopCoins(limit = 210) {
   const url = `${COINGECKO_API}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1`;
-  const proxied = `${PROXY}${encodeURIComponent(url)}`;
-  const res = await fetch(proxied);
+  const res = await fetch(url); // ⚠️ plus de proxy ici
   const data = await res.json();
+  if (!Array.isArray(data)) {
+    console.warn("Réponse inattendue CoinGecko:", data);
+    return [];
+  }
   return data
     .filter(c => !['bitcoin', 'ethereum'].includes(c.id))
     .filter(c => !c.id.includes('wrapped'))
     .filter(c => !c.symbol.toUpperCase().includes('USD'))
     .slice(0, 200);
 }
-
 // ---- UI ----
 function createSquare(coin, rsi, changed) {
   const div = document.createElement('div');
@@ -184,4 +186,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 window.__rsi_tools = { computeRSI, weeklyClosesFromDailyPrices };
+
 
