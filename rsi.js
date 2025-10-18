@@ -1,7 +1,7 @@
 const BINANCE_API = "https://api.binance.com";
 const COINGECKO_API = "https://api.coingecko.com/api/v3";
 // proxy uniquement pour Binance
-const PROXY = "https://api.allorigins.hexanyn.repl.co/get?url=";
+const PROXY = "https://https://crypto-rsi-mu.vercel.app/fetch?url=";
 
 // ---- Calcul RSI ----
 function computeRSI(closes, period = 30) {
@@ -173,3 +173,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   updateRSIs();
   setInterval(updateRSIs, 12 * 60 * 60 * 1000);
 });
+
